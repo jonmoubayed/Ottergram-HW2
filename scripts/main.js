@@ -4,7 +4,9 @@ var DETAIL_FRAME_SELECTOR = '[data-image-roles="frame"]';
 var THUMBNAIL_LINK_SELECTOR = '[data-image-role="trigger"]';
 var HIDDEN_DETAIL_CLASS = 'hidden-detail';
 var TINY_EFFECT_CLASS = 'is-tiny';
+var LIST = document.getElementsByTagName("a");
 var ESC_KEY = 27;
+var INDEX = 0;
 
 function setDetails(imageUrl, titleText){
   'use strict';
@@ -17,6 +19,7 @@ function setDetails(imageUrl, titleText){
 
 function imageFromThumb(thumbnail){
   'use strict';
+  INDEX = parseInt(thumbnail.getAttribute('index'));
   return thumbnail.getAttribute('data-image-url');
 }
 
@@ -79,4 +82,21 @@ function initializeEvents() {
   addKeyPressHandler();
 }
 
+function changeSlide(n) {
+  console.log(LIST);
+  if (n === +1){
+    INDEX++;
+    if (INDEX>=15) {
+      INDEX = 0;
+    }
+    setDetails(LIST[INDEX].getAttribute('href'), LIST[INDEX].getAttribute('data-image-title'));
+  }
+  if (n === -1){
+    INDEX--;
+    if (INDEX<=0) {
+      INDEX = 14;
+    }
+    setDetails(LIST[INDEX].getAttribute('href'), LIST[INDEX].getAttribute('data-image-title'));
+  }
+}
 initializeEvents();
