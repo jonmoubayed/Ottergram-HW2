@@ -8,7 +8,7 @@ var LIST = document.getElementsByTagName("a");
 var ESC_KEY = 27;
 var INDEX = 0;
 
-function setDetails(imageUrl, titleText){
+function setDetails(imageUrl, titleText) {
   'use strict';
   var detailImage = document.querySelector(DETAIL_IMAGE_SELECTOR);
   detailImage.setAttribute('src', imageUrl);
@@ -17,32 +17,32 @@ function setDetails(imageUrl, titleText){
   detailTitle.textContent = titleText;
 }
 
-function imageFromThumb(thumbnail){
+function imageFromThumb(thumbnail) {
   'use strict';
   INDEX = parseInt(thumbnail.getAttribute('index'));
   return thumbnail.getAttribute('data-image-url');
 }
 
-function titleFromThumb(thumbnail){
+function titleFromThumb(thumbnail) {
   'use strict';
   return thumbnail.getAttribute('data-image-title');
 }
 
-function setDetailsFromThumb(thumbnail){
+function setDetailsFromThumb(thumbnail) {
   'use strict';
   setDetails(imageFromThumb(thumbnail), titleFromThumb(thumbnail));
 }
 
-function addThumbClickHandler(thumb){
+function addThumbClickHandler(thumb) {
   'use strict';
-  thumb.addEventListener('click', function(event){
+  thumb.addEventListener('click', function(event) {
     event.preventDefault();
     setDetailsFromThumb(thumb);
     showDetails();
   });
 }
 
-function getThumbnailsArray(){
+function getThumbnailsArray() {
   'use strict';
   var thumbnails = document.querySelectorAll(THUMBNAIL_LINK_SELECTOR);
   var thumbnailArray = [].slice.call(thumbnails);
@@ -66,10 +66,10 @@ function showDetails() {
 
 function addKeyPressHandler() {
   'use strict';
-  document.body.addEventListener('keyup', function (event) {
+  document.body.addEventListener('keyup', function(event) {
     event.preventDefault();
     console.log(event.keyCode);
-    if(event.keyCode === ESC_KEY) {
+    if (event.keyCode === ESC_KEY) {
       hideDetails();
     }
   });
@@ -84,16 +84,16 @@ function initializeEvents() {
 
 function changeSlide(n) {
   console.log(LIST);
-  if (n === +1){
+  if (n === +1) {
     INDEX++;
-    if (INDEX>=15) {
+    if (INDEX >= 15) {
       INDEX = 0;
     }
     setDetails(LIST[INDEX].getAttribute('href'), LIST[INDEX].getAttribute('data-image-title'));
   }
-  if (n === -1){
+  if (n === -1) {
     INDEX--;
-    if (INDEX<=0) {
+    if (INDEX < 0) {
       INDEX = 14;
     }
     setDetails(LIST[INDEX].getAttribute('href'), LIST[INDEX].getAttribute('data-image-title'));
